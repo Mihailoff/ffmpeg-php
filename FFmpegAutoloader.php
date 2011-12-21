@@ -49,15 +49,12 @@ class FFmpegAutoloader {
     /**
      * Registering autoloading mechanizm
      */     
-    public static function register() {
+    public static function register( $prepend = false ) {
         if (function_exists('__autoload')) {        
             trigger_error('FFmpegPHP uses spl_autoload_register() which will bypass your __autoload() and may break your autoloading', E_USER_WARNING);    
         } else {        
             self::initClasses();
-            spl_autoload_register(array('FFmpegAutoloader', 'autoload'));
+            spl_autoload_register(array('FFmpegAutoloader', 'autoload'), true, $prepend );
         }
     }
 }
-
-FFmpegAutoloader::register();
-?>
